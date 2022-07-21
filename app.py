@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
-
+import ansible_runner
 
 app = Flask(__name__)
 app.secret_key = 'bdbabdbatestsecret'
@@ -31,9 +31,21 @@ def index():
     return render_template('index.html', user_name=user_name)
 
 
-@app.route('/control')
+@app.route('/control', methods=['GET', 'POST'])
 @login_required
 def control():
+    play_name = request.form.get('playbook')
+    if request.method == "POST":
+        r = ansible_runner.run(private_data_dir='/Users/Denis_Babiichuk/PycharmProjects/BDBA-control/ansible',
+                               playbook=play_name)
+        print("{}: {}".format(r.status, r.rc))
+        # successful: 0
+        for each_host_event in r.events:
+            print(each_host_event['event'])
+        print("Final status:")
+        print(r.stats)
+        status = r.status
+        return render_template('control.html', status=status)
     return render_template('control.html')
 
 

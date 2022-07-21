@@ -6,7 +6,23 @@ Application control panel
 
 {% block body %}
 <h2>Control page</h2>
-<p>Ansible playbooks</p>
-
-
+  <br><br>
+<form method="POST">
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault1" value="ping.yml" checked>
+  <label class="form-check-label" for="flexRadioDefault1">
+    test 1
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault2" value="folder.yml">
+  <label class="form-check-label" for="flexRadioDefault2">
+    test 2
+  </label>
+</div>
+  <br><br>
+  <div>
+    <input type="submit" class="btn btn-warning" value="run playbook"> {{ status }}
+  </div>
+</form>
 {% endblock %}
