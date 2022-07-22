@@ -7,22 +7,73 @@ Application control panel
 {% block body %}
 <h2>Control page</h2>
   <br><br>
+
 <form method="POST">
+  <h4>Please select an action:</h4>
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault1" value="ping.yml" checked>
+  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault1" value="restart.yml" checked>
   <label class="form-check-label" for="flexRadioDefault1">
-    test 1
+    Restart host/cluster
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault2" value="folder.yml">
+  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault2" value="install.yml">
   <label class="form-check-label" for="flexRadioDefault2">
-    test 2
+    Install telegraf agent
   </label>
 </div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault3" value="restart_a">
+  <label class="form-check-label" for="flexRadioDefault2">
+    Restart telegraf agent
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault4" value="update_user">
+  <label class="form-check-label" for="flexRadioDefault2">
+    Update user list
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault5" value="sus_user">
+  <label class="form-check-label" for="flexRadioDefault2">
+    Suspend user
+  </label>
+</div>
+<br>
+<select class="form-select" aria-label="Default select example">
+  <option selected>Please select host:</option>
+  <option value="all" name="hostname">All hosts</option>
+  <option value="10.236.196.116" name="hostname">new-frontend-1</option>
+  <option value="10.236.194.7" name="hostname">new-bdba-worker-1</option>
+  <option value="10.236.194.17" name="hostname">new-bdba-worker-2</option>
+  <option value="10.236.195.172" name="hostname">new-bdba-worker-3</option>
+  <option value="10.236.195.254" name="hostname">new-bdba-worker-4</option>
+  <option value="10.236.136.240" name="hostname">new-bdba-worker-5</option>
+  <option value="10.236.194.113" name="hostname">new-bdba-worker-6</option>
+  <option value="10.236.195.92" name="hostname">new-bdba-worker-7</option>
+  <option value="10.236.195.152" name="hostname">new-bdba-worker-8</option>
+  <option value="10.236.195.144" name="hostname">new-bdba-worker-9</option>
+  <option value="10.236.196.84" name="hostname">new-bdba-worker-10</option>
+</select>
   <br><br>
-  <div>
+<div>
     <input type="submit" class="btn btn-warning" value="run playbook"> {{ status }}
   </div>
 </form>
 {% endblock %}
+
+
+<!--[frontend]-->
+<!--10.236.196.116  # new-frontend-1-->
+<!--[workers]-->
+<!--10.236.194.7    # new-bdba-worker-1-->
+<!--10.236.194.17   # new-bdba-worker-2-->
+<!--10.236.195.172  # new-bdba-worker-3-->
+<!--10.236.195.254  # new-bdba-worker-4-->
+<!--10.236.136.240  # new-bdba-worker-5-->
+<!--10.236.194.113  # new-bdba-worker-6-->
+<!--10.236.195.92   # new-bdba-worker-7-->
+<!--10.236.195.152  # new-bdba-worker-8-->
+<!--10.236.195.144  # new-bdba-worker-9-->
+<!--10.236.196.84   # new-bdba-worker-10-->

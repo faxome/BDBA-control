@@ -12,6 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 manager = LoginManager(app)
 
+ansible_path = '/Users/Denis_Babiichuk/PycharmProjects/BDBA-control/ansible'
 
 class User (db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -27,17 +28,18 @@ def load_user(user_id):
 @app.route('/')
 @login_required
 def index():
-    user_name = flask_login.current_user
-    return render_template('index.html', user_name=user_name)
+    # user_name = flask_login.current_user
+    return render_template('index.html')
 
 
 @app.route('/control', methods=['GET', 'POST'])
 @login_required
 def control():
-    play_name = request.form.get('playbook')
+    # play_name = request.form.get('playbook')
+    # host_name = request.form.get('hostname')
     if request.method == "POST":
-        r = ansible_runner.run(private_data_dir='/Users/Denis_Babiichuk/PycharmProjects/BDBA-control/ansible',
-                               playbook=play_name)
+        r = ansible_runner.run(private_data_dir=ansible_path,
+                               playbook='ping.yml')
         print("{}: {}".format(r.status, r.rc))
         # successful: 0
         for each_host_event in r.events:
@@ -120,4 +122,4 @@ def redirect_to_signin(response):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=8081)
+    app.run(debug=True, host='0.0.0.0', port=5000)
