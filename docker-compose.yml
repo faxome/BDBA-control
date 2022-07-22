@@ -1,8 +1,9 @@
+version: "3"
 services:
-  app:
-    build: .
-    container_name: bdba_control_app
-    ports:
-      - "80:5000"
-    volumes:
-      - .:/code
+     app:
+        build: .
+        container_name: bdba_control_app
+        ports:
+          - "80:5000"
+        volumes:
+          - .:/code
