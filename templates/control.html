@@ -24,20 +24,26 @@ Application control panel
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault3" value="restart_a">
-  <label class="form-check-label" for="flexRadioDefault2">
+  <label class="form-check-label" for="flexRadioDefault3">
     Restart telegraf agent
   </label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault4" value="update_user">
-  <label class="form-check-label" for="flexRadioDefault2">
+  <label class="form-check-label" for="flexRadioDefault4">
     Update user list
   </label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault5" value="sus_user">
-  <label class="form-check-label" for="flexRadioDefault2">
+  <label class="form-check-label" for="flexRadioDefault5">
     Suspend user
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault6" value="test.yml">
+  <label class="form-check-label" for="flexRadioDefault6">
+    Test
   </label>
 </div>
 <br>
@@ -58,8 +64,14 @@ Application control panel
 </select>
   <br><br>
 <div>
-    <input type="submit" class="btn btn-warning" value="run playbook"> {{ status }}
+    <input type="submit" class="btn btn-warning" value="run playbook"> status: {{ status }}
   </div>
+<br/>
+<div class="form-floating">
+  logs:
+  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+  <label for="floatingTextarea2">{{ stats }}</label>
+</div>
 </form>
 {% endblock %}
 
