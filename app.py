@@ -11,11 +11,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 manager = LoginManager(app)
 
-# ansible_path = '/app/ansible' продакшен
-ansible_path = '/Users/Denis_Babiichuk/PycharmProjects/BDBA-control/ansible_local'
+ANSIBLE_PATH = '/app/ansible'
+# ANSIBLE_PATH = '/Users/Denis_Babiichuk/PycharmProjects/BDBA-control/ansible_local'
 
 
-class User (db.Model, UserMixin):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False)
@@ -36,21 +36,14 @@ def index():
 @app.route('/control', methods=['GET', 'POST'])
 @login_required
 def control():
-    # play_name = request.form.get('playbook') включить на прод
-    # host_name = request.form.get('hostname')
+    play_name = request.form.get('playbook')
+    hostname = request.form.get('hostname')
     if request.method == "POST":
-        r = ansible_runner.run(private_data_dir=ansible_path,
-                               playbook='test.yml')
-        print("{}: {}".format(r.status, r.rc))
-        # successful: 0
-        for each_host_event in r.events:
-            print(each_host_event['event'])
-        print("Final status:")
-        print(r.stats)
-        status = r.status
-        play_log = r.rc
-        stats = r.stats
-        return render_template('control.html', status=status, stats=stats, play_log=play_log)
+        ansible_log = ansible_runner.run_command(
+            executable_cmd='ansible-playbook',
+            cmdline_args=['./ansible_local/' + play_name, '-i', 'ansible_local/hosts', '-l', hostname],
+        )
+        return render_template('control.html', ansible_log=ansible_log)
     return render_template('control.html')
 
 
@@ -63,6 +56,7 @@ def settings():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
 
 # функционал для чтения логов из директории
 # @app.route('/uploads/<path:filename>', methods=['GET', 'POST'])
@@ -124,8 +118,8 @@ def logout():
 
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
-    r = ansible_runner.run(private_data_dir=ansible_path,
-                           playbook='uptime.yml')
+    r = ansible_runner.run(private_data_dir=ANSIBLE_PATH,
+                           playbook='collectlogs.yml')
     print("{}: {}".format(r.status, r.rc))
     # successful: 0
     for each_host_event in r.events:
@@ -142,4 +136,4 @@ def redirect_to_signin(response):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=8081)
+    app.run(debug=True, host='localhost', port=8081)

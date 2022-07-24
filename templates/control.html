@@ -5,73 +5,140 @@ Application control panel
 {% endblock %}
 
 {% block body %}
-<h2>Control page</h2>
-  <br><br>
-
-<form method="POST">
-  <h4>Please select an action:</h4>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault1" value="restart.yml" checked>
-  <label class="form-check-label" for="flexRadioDefault1">
-    Restart host/cluster
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault2" value="install.yml">
-  <label class="form-check-label" for="flexRadioDefault2">
-    Install telegraf agent
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault3" value="restart_a">
-  <label class="form-check-label" for="flexRadioDefault3">
-    Restart telegraf agent
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault4" value="update_user">
-  <label class="form-check-label" for="flexRadioDefault4">
-    Update user list
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault5" value="sus_user">
-  <label class="form-check-label" for="flexRadioDefault5">
-    Suspend user
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault6" value="test.yml">
-  <label class="form-check-label" for="flexRadioDefault6">
-    Test
-  </label>
-</div>
-<br>
-<select class="form-select" aria-label="Default select example">
-  <option selected>Please select host:</option>
-  <option value="all" name="hostname">All hosts</option>
-  <option value="10.236.196.116" name="hostname">new-frontend-1</option>
-  <option value="10.236.194.7" name="hostname">new-bdba-worker-1</option>
-  <option value="10.236.194.17" name="hostname">new-bdba-worker-2</option>
-  <option value="10.236.195.172" name="hostname">new-bdba-worker-3</option>
-  <option value="10.236.195.254" name="hostname">new-bdba-worker-4</option>
-  <option value="10.236.136.240" name="hostname">new-bdba-worker-5</option>
-  <option value="10.236.194.113" name="hostname">new-bdba-worker-6</option>
-  <option value="10.236.195.92" name="hostname">new-bdba-worker-7</option>
-  <option value="10.236.195.152" name="hostname">new-bdba-worker-8</option>
-  <option value="10.236.195.144" name="hostname">new-bdba-worker-9</option>
-  <option value="10.236.196.84" name="hostname">new-bdba-worker-10</option>
-</select>
-  <br><br>
-<div>
-    <input type="submit" class="btn btn-warning" value="run playbook"> status: {{ status }}
-  </div>
+<h2><u>BDBA cluster control page</u></h2>
 <br/>
-<div class="form-floating">
-  logs:
-  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-  <label for="floatingTextarea2">{{ stats }}</label>
-</div>
+<form id="topicForm" method="POST">
+    <h4>Please select an action:</h4>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault1" value="reboot.yml" checked>
+        <label class="form-check-label" for="flexRadioDefault1">
+            Restart host/cluster
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault2" value="install_telegraf.yml">
+        <label class="form-check-label" for="flexRadioDefault2">
+            Install telegraf agent
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault3" value="restart_telegraf.yml">
+        <label class="form-check-label" for="flexRadioDefault3">
+            Restart telegraf agent
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault4" value="useradd.yml">
+        <label class="form-check-label" for="flexRadioDefault4">
+            Update user list
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault5" value="userdisable.yml">
+        <label class="form-check-label" for="flexRadioDefault5">
+            Suspend user
+        </label>
+    </div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault19" value="collectlogs.yml">
+        <label class="form-check-label" for="flexRadioDefault19">
+            Collect logs pack (for vendor)
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault6" value="check.yml">
+        <label class="form-check-label" for="flexRadioDefault6">
+            Check connection (ping)
+        </label>
+    </div>
+    <br/>
+    <h4>Please select host:</h4>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault7" value="all" checked>
+        <label class="form-host-label" for="flexRadioDefault7">
+            All hosts
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault8" value="10.236.196.116">
+        <label class="form-host-label" for="flexRadioDefault8">
+            new-frontend-1
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault9" value="10.236.194.7">
+        <label class="form-host-label" for="flexRadioDefault9">
+            new-bdba-worker-1
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault10" value="10.236.194.17">
+        <label class="form-host-label" for="flexRadioDefault10">
+            new-bdba-worker-2
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault11" value="10.236.195.172">
+        <label class="form-host-label" for="flexRadioDefault11">
+            new-bdba-worker-3
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault12" value="10.236.195.254">
+        <label class="form-host-label" for="flexRadioDefault12">
+            new-bdba-worker-4
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault13" value="10.236.136.240">
+        <label class="form-host-label" for="flexRadioDefault13">
+            new-bdba-worker-5
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault14" value="10.236.194.113">
+        <label class="form-host-label" for="flexRadioDefault14">
+            new-bdba-worker-6
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault15" value="10.236.195.92">
+        <label class="form-host-label" for="flexRadioDefault15">
+            new-bdba-worker-7
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault16" value="10.236.195.152">
+        <label class="form-host-label" for="flexRadioDefault16">
+            new-bdba-worker-8
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault17" value="10.236.195.144">
+        <label class="form-host-label" for="flexRadioDefault17">
+            new-bdba-worker-9
+        </label>
+    </div>
+    <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault18" value="10.236.196.84">
+        <label class="form-host-label" for="flexRadioDefault18">
+            new-bdba-worker-10
+        </label>
+    </div>
+        <div class="form-host">
+        <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault20" value="10.236.193.58">
+        <label class="form-host-label" for="flexRadioDefault20">
+            bdba-monitoring
+        </label>
+    </div>
+    <br/>
+    <button id="btnFetch" type="submit" class="btn btn-warning">Run playbook</button>
+    <br/><br/>
+    <div class="form-floating">
+        ansible logs:
+        <textarea class="form-control" id="floatingTextarea2" style="height: 100px">{{ ansible_log }}</textarea>
+        <label for="floatingTextarea2"></label>
+    </div>
 </form>
 {% endblock %}
 
