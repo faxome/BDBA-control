@@ -41,7 +41,7 @@ def control():
     if request.method == "POST":
         ansible_log = ansible_runner.run_command(
             executable_cmd='ansible-playbook',
-            cmdline_args=['./ansible_local/' + play_name, '-i', 'ansible_local/hosts', '-l', hostname],
+            cmdline_args=[ANSIBLE_PATH, play_name, '-i', 'ansible_local/hosts', '-l', hostname],
         )
         return render_template('control.html', ansible_log=ansible_log)
     return render_template('control.html')
