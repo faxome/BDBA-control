@@ -1,9 +1,5 @@
 {% extends 'template.html' %}
 
-{% block title %}
-Application control panel
-{% endblock %}
-
 {% block body %}
 <h2><u>BDBA cluster control page</u></h2>
 <br/>
@@ -16,31 +12,21 @@ Application control panel
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault2" value="install_telegraf.yml">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault2"
+               value="install_telegraf.yml">
         <label class="form-check-label" for="flexRadioDefault2">
             Install telegraf agent
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault3" value="restart_telegraf.yml">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault3"
+               value="restart_telegraf.yml">
         <label class="form-check-label" for="flexRadioDefault3">
             Restart telegraf agent
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault4" value="useradd.yml">
-        <label class="form-check-label" for="flexRadioDefault4">
-            Update user list
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault5" value="userdisable.yml">
-        <label class="form-check-label" for="flexRadioDefault5">
-            Suspend user
-        </label>
-    </div>
-        <div class="form-check">
-        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault19" value="collectlogs.yml">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault19" value="collect_logs.yml">
         <label class="form-check-label" for="flexRadioDefault19">
             Collect logs pack (for vendor)
         </label>
@@ -125,7 +111,7 @@ Application control panel
             new-bdba-worker-10
         </label>
     </div>
-        <div class="form-host">
+    <div class="form-host">
         <input class="form-host-input" type="radio" name="hostname" id="flexRadioDefault20" value="10.236.193.58">
         <label class="form-host-label" for="flexRadioDefault20">
             bdba-monitoring
@@ -141,18 +127,3 @@ Application control panel
     </div>
 </form>
 {% endblock %}
-
-
-<!--[frontend]-->
-<!--10.236.196.116  # new-frontend-1-->
-<!--[workers]-->
-<!--10.236.194.7    # new-bdba-worker-1-->
-<!--10.236.194.17   # new-bdba-worker-2-->
-<!--10.236.195.172  # new-bdba-worker-3-->
-<!--10.236.195.254  # new-bdba-worker-4-->
-<!--10.236.136.240  # new-bdba-worker-5-->
-<!--10.236.194.113  # new-bdba-worker-6-->
-<!--10.236.195.92   # new-bdba-worker-7-->
-<!--10.236.195.152  # new-bdba-worker-8-->
-<!--10.236.195.144  # new-bdba-worker-9-->
-<!--10.236.196.84   # new-bdba-worker-10-->
