@@ -133,9 +133,9 @@ def webhook():
     get_time = datetime.utcnow().strftime("%d.%m.%y-%R")
     ansible_runner.run_command(
         executable_cmd='ansible-playbook',
-        cmdline_args=['./ansible/collect_logs.yml', '-i', ANSIBLE_PATH + '/hosts/prod', '-l', '63.35.232.229', '-e', 'get_time=' + get_time],
+        cmdline_args=['./ansible/collect_logs.yml', '-i', ANSIBLE_PATH + '/hosts/prod', '-e', 'get_time=' + get_time],
     )
-    link = flask.request.host_url + "logs/diagnostic." + get_time + ".tar.gz"
+    link = flask.request.host_url + "logs/diagnostic." + get_time + ".zip"
     event = Events(link=link)
     db.session.add(event)
     db.session.commit()
