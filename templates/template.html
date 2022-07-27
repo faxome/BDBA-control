@@ -4,29 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>OneDuck</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
-    <link type="text/css" href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet" />
+    <link type="text/css" href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet"/>
+    <link rel="shortcut icon" href="/static/img/favicon.png" type="image/png">
 </head>
 <body id="body-pd">
-        <header class="header" id="header">
-            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        </header>
-        <div class="l-navbar" id="nav-bar">
-            <nav class="nav">
-                <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">BDBA Control App</span></a>
-                    <div class="nav_list"> <a href="/" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Home</span> </a> <a href="/control" class="nav_link"> <i class='bx bx-command nav_icon'></i> <span class="nav_name">Control</span> </a> <a href="/settings" class="nav_link"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Settings</span> </a> <a href="/about" class="nav_link"> <i class='bx bx-info-square nav_icon'></i> <span class="nav_name">About</span> </a> <a href="/logout" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">Logout</span> </a></div>
-                </div>
-            </nav>
+<header class="header" id="header">
+    <div class="header_toggle"><i class='bx bx-menu' id="header-toggle"></i></div>
+</header>
+<div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+        <div><a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">OneDuck<small> v.1.0.2</small></span></a>
+            <div class="nav_list">
+                <a href="/" class="nav_link active">
+                    <i class='bx bx-grid-alt nav_icon'></i>
+                    <span class="nav_name">Dashboard</span> </a>
+                <a href="/control" class="nav_link">
+                    <i class='bx bx-command nav_icon'></i>
+                    <span class="nav_name">Control</span> </a>
+                <a href="/alerts" class="nav_link">
+                <i class='bx bx-message-dots nav_icon'></i>
+                    <span class="nav_name">Alerts</span> </a>
+                <a href="/settings" class="nav_link">
+                <i class='bx bx-cog nav_icon'></i>
+                    <span class="nav_name">Settings</span> </a>
+                <a href="/about" class="nav_link"> <i class='bx bx-info-square nav_icon'></i>
+                    <span class="nav_name">About</span> </a>
+                <a href="/logout" class="nav_link">
+                <i class='bx bx-log-in nav_icon'></i>
+                    <span class="nav_name">Logout</span> </a></div>
         </div>
-        <div class="height-100">
-            <br>
-            {% block body %}{% endblock %}
-        </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-        <script src="{{url_for('static',filename='css/charts.js')}}"></script>
-        <script src="{{url_for('static',filename='css/main.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </nav>
+</div>
+<div class="height-100">
+    <br>
+    {% block body %}{% endblock %}
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="{{url_for('static',filename='css/loading.js')}}"></script>
+<script src="{{url_for('static',filename='css/main.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 </html>

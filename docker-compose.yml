@@ -1,0 +1,9 @@
+version: "3"
+services:
+     app:
+        build: .
+        container_name: oneduck
+        ports:
+          - "80:5001"
+        volumes:
+          - .:/app
