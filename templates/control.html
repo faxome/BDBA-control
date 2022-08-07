@@ -32,6 +32,12 @@
         </label>
     </div>
     <div class="form-check">
+        <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault21" value="clear_backup.yml">
+        <label class="form-check-label" for="flexRadioDefault21">
+            Remove old files in /backup
+        </label>
+    </div>
+    <div class="form-check">
         <input class="form-check-input" type="radio" name="playbook" id="flexRadioDefault6" value="check.yml">
         <label class="form-check-label" for="flexRadioDefault6">
             Check connection (ping)
@@ -120,10 +126,9 @@
     <br/>
     <button id="btnFetch" type="submit" class="btn btn-warning">Run playbook</button>
     <br/><br/>
-    <div class="form-floating">
-        ansible logs:
-        <textarea class="form-control" id="floatingTextarea2" style="height: 100px">{{ ansible_log }}</textarea>
-        <label for="floatingTextarea2"></label>
+    <p>ansible logs:</p>
+    <div class="alert alert-info">
+        {{ ansible_log|safe() }}
     </div>
 </form>
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'template.html' %}
+
+{% block body %}
+<div class="container mt-5">
+    <p>Add new alert message</p>
+    <form method="POST">
+        <input type="text" name="title" id="title" placeholder="Title" class="form-control"><br>
+        <textarea name="text" id="text" placeholder="Text" class="form-control"></textarea><br>
+        <input type="submit" class="btn btn-success" value="Add message">
+    </form>
+</div>
+{% endblock %}

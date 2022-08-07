@@ -1,8 +1,10 @@
 {% extends 'template.html' %}
 
 {% block body %}
-<h2><u>Settings page</u></h2>
+<h2><u>Settings page</u></h2><br>
 <form>
-    <input type="submit" class="btn btn-warning" value="Update playbooks">
+    <input type="submit" class="btn btn-warning" value="Update playbooks"><br><br>
+    <a class="btn btn-warning" href="/register-new-user" role="button">Add user</a><br><br>
+    <a class="btn btn-warning" href="/add_message" role="button">Add message</a>
 </form>
 {% endblock %}

@@ -13,9 +13,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 manager = LoginManager(app)
 
-ANSIBLE_PATH = '/app/ansible'
-# ANSIBLE_PATH = '/Users/Denis_Babiichuk/PycharmProjects/BDBA-control/ansible_local'
-
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,6 +26,15 @@ class Events(db.Model):
     link = db.Column(db.Text, nullable=False)
 
 
+class Messages(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    text = db.Column(db.NVARCHAR(1000), nullable=False)
+
+    def __repr__(self):
+        return '<Message %r>' % self.id
+
+
 @manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -37,7 +43,7 @@ def load_user(user_id):
 @app.route('/')
 @login_required
 def index():
-    event = Events.query.order_by(Events.date).all()
+    event = Events.query.order_by(Events.date.desc()).limit(5)
     return render_template('dashboard.html', event=event)
 
 
@@ -49,15 +55,39 @@ def control():
     if request.method == "POST":
         ansible_log = ansible_runner.run_command(
             executable_cmd='ansible-playbook',
-            cmdline_args=['./ansible/' + play_name, '-i', ANSIBLE_PATH + '/hosts/prod', '-l', hostname],
+            cmdline_args=['./ansible/' + play_name, '-i', './ansible/hosts/prod', '-l', hostname],
         )
-        return render_template('control.html', ansible_log=ansible_log)
+        return render_template('control.html', ansible_log=str(ansible_log).replace(r'\n', '<br>'))
+
     return render_template('control.html')
 
 
-@app.route('/alerts')
-def alerts():
-    return render_template('alerts.html')
+@app.route('/messages')
+def messages():
+    get_messages = Messages.query.all()
+    return render_template('messages.html', get_messages=get_messages)
+
+
+@app.route('/messages/<int:id>')
+def view_message(id):
+    get_message = Messages.query.get(id)
+    return render_template('view_messages.html', get_message=get_message)
+
+
+@app.route('/add_message', methods=['GET', 'POST'])
+@login_required
+def message():
+    if request.method == 'POST':
+        message_title = request.form.get('title')
+        message_text = request.form.get('text')
+        new_message = Messages(title=message_title, text=message_text)
+        try:
+            db.session.add(new_message)
+            db.session.commit()
+            return redirect('/messages')
+        except:
+            return "Something went wrong, please try again"
+    return render_template('add_message.html')
 
 
 @app.route('/settings')
@@ -133,13 +163,23 @@ def webhook():
     get_time = datetime.utcnow().strftime("%d.%m.%y-%R")
     ansible_runner.run_command(
         executable_cmd='ansible-playbook',
-        cmdline_args=['./ansible/collect_logs.yml', '-i', ANSIBLE_PATH + '/hosts/prod', '-e', 'get_time=' + get_time],
+        cmdline_args=['./ansible/collect_logs.yml', '-i', './ansible/hosts/prod', '-e', 'get_time=' + get_time],
     )
     link = flask.request.host_url + "logs/diagnostic." + get_time + ".zip"
     event = Events(link=link)
     db.session.add(event)
     db.session.commit()
     return link
+
+
+@app.route('/clear_webhook', methods=['GET', 'POST'])
+def clear_webhook():
+    ansible_runner.run_command(
+        executable_cmd='ansible-playbook',
+        cmdline_args=['./ansible/clear_backup.yml', '-i', './ansible/hosts/prod'],
+    )
+
+    return "Done"
 
 
 @app.after_request
