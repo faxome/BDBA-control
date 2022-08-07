@@ -1,0 +1,14 @@
+{% extends 'template.html' %}
+
+{% block body %}
+<div class="container mt-5">
+    <p><b>{{ get_message.title }}</b></p>
+<div class="alert alert-info">
+{{ get_message.text|safe() }}
+
+    </div>
+    <a href="/messages" class="btn btn-warning">Back</a>
+
+</div>
+
+{% endblock %}

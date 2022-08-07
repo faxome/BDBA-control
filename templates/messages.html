@@ -1,0 +1,12 @@
+{% extends 'template.html' %}
+
+{% block body %}
+<div class="container mt-5">
+    {% for el in get_messages %}
+    <div class="alert alert-info">
+        <h3>{{ el.title }}</h3>
+        <a href="/messages/{{ el.id }}" class="btn btn-warning">Read more</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
